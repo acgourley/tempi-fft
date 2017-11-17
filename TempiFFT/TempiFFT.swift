@@ -1,9 +1,3 @@
-//
-//  TempiFFT.swift
-//  TempiBeatDetection
-//
-//  Created by John Scalo on 1/12/16.
-//  Copyright © 2016 John Scalo. See accompanying License.txt for terms.
 
 /*  A functional FFT built atop Apple's Accelerate framework for optimum performance on any device. In addition to simply performing the FFT and providing access to the resulting data, TempiFFT provides the ability to map the FFT spectrum data into logical bands, either linear or logarithmic, for further analysis.
 

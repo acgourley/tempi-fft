@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  TempiHarness
-//
-//  Created by John Scalo on 1/7/16.
-//  Copyright © 2016 John Scalo. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain

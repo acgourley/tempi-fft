@@ -1,9 +1,3 @@
-//
-//  TempiAudioInput.swift
-//  TempiBeatDetection
-//
-//  Created by John Scalo on 1/7/16.
-//  Copyright © 2016 John Scalo. See accompanying License.txt for terms.
 
 import AVFoundation
 

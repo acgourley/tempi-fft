@@ -1,30 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Futura.ttc">
+            <string>Futura-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Spectral View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="SpectralViewController" customModule="TempiFFT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3M-wR-rEc">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <color key="backgroundColor" red="0.25414912564766834" green="0.25414912564766834" blue="0.25414912564766834" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="32 dB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvg-xX-I3r" userLabel="bigNumber">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="180"/>
+                                <color key="textColor" red="0.4388593864" green="0.8114911024" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="hvg-xX-I3r" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="3vl-84-0uY"/>
+                            <constraint firstAttribute="trailing" secondItem="O3M-wR-rEc" secondAttribute="trailing" id="5ur-cY-f2p"/>
+                            <constraint firstItem="hvg-xX-I3r" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="MYB-GC-FpM"/>
+                            <constraint firstAttribute="trailing" secondItem="hvg-xX-I3r" secondAttribute="trailing" id="PHg-fI-CtR"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="O3M-wR-rEc" secondAttribute="bottom" id="Ul9-7D-ezH"/>
+                            <constraint firstItem="O3M-wR-rEc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="V96-Vf-JXR"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hvg-xX-I3r" secondAttribute="bottom" id="hJM-oH-Str"/>
+                            <constraint firstItem="O3M-wR-rEc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="urf-HW-ppT"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bigNumber" destination="hvg-xX-I3r" id="72a-hc-oMb"/>
+                        <outlet property="spectrum" destination="O3M-wR-rEc" id="1yg-us-6Kp"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="133.5832083958021" y="124"/>
         </scene>
     </scenes>
 </document>

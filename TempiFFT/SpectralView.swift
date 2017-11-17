@@ -1,10 +1,3 @@
-//
-//  SpectralView.swift
-//  TempiHarness
-//
-//  Created by John Scalo on 1/20/16.
-//  Copyright © 2016 John Scalo. All rights reserved.
-//
 
 import UIKit
 
@@ -12,7 +5,8 @@ class SpectralView: UIView {
 
     var fft: TempiFFT!
     var avgFFT: [Float]!
-    var highestDB: Float = 0.0
+    private var highestDB: Float = 0.0
+    public var highestDBSmooth: Float = 0.0
 
     override func draw(_ rect: CGRect) {
         
@@ -40,7 +34,7 @@ class SpectralView: UIView {
         context.scaleBy(x: 1, y: -1)
         context.translateBy(x: 0, y: -viewHeight)
         
-        let colors = [UIColor.green.cgColor, UIColor.yellow.cgColor, UIColor.red.cgColor]
+        let colors = [UIColor.blue.cgColor, UIColor.purple.cgColor, UIColor.red.cgColor]
         let gradient = CGGradient(
             colorsSpace: nil, // generic color space
             colors: colors as CFArray,
@@ -58,7 +52,7 @@ class SpectralView: UIView {
         highestDB = 0
         for i in 0..<count {
             
-            avgFFT[i] = fft.magnitudeAtBand(i) * 0.3 + avgFFT[i] * 0.7
+            avgFFT[i] = fft.magnitudeAtBand(i) * 0.2 + avgFFT[i] * 0.8 //lowpass
             
             //let magnitude = fft.magnitudeAtBand(i) //fast reading
             let magnitude = avgFFT[i]; // slow avg
@@ -90,7 +84,11 @@ class SpectralView: UIView {
             
             x += colWidth
         }
-        
+        if(highestDB > highestDBSmooth) {
+            highestDBSmooth = highestDB * 0.2 + highestDBSmooth * 0.8;
+        } else {
+            highestDBSmooth = highestDB * 0.01 + highestDBSmooth * 0.99;
+        }
         context.restoreGState()
     }
     
@@ -104,10 +102,10 @@ class SpectralView: UIView {
         let pointSize: CGFloat = 15.0
         let font = UIFont.systemFont(ofSize: pointSize, weight: UIFontWeightRegular)
         
-        let freqLabelStr = "Frequency (kHz) Highest: " + String(format: "%0.0f", highestDB) + " dB"
+        let freqLabelStr = ""//Frequency (kHz) Highest: " + String(format: "%0.0f", highestDB) + " dB"
         var attrStr = NSMutableAttributedString(string: freqLabelStr)
         attrStr.addAttribute(NSFontAttributeName, value: font, range: NSMakeRange(0, freqLabelStr.characters.count))
-        attrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.yellow, range: NSMakeRange(0, freqLabelStr.characters.count))
+        attrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.cyan, range: NSMakeRange(0, freqLabelStr.characters.count))
         
         var x: CGFloat = viewWidth / 2.0 - attrStr.size().width / 2.0
         attrStr.draw(at: CGPoint(x: 0, y: -22))
@@ -121,7 +119,7 @@ class SpectralView: UIView {
             
             attrStr = NSMutableAttributedString(string: str)
             attrStr.addAttribute(NSFontAttributeName, value: font, range: NSMakeRange(0, str.characters.count))
-            attrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.yellow, range: NSMakeRange(0, str.characters.count))
+            attrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.cyan, range: NSMakeRange(0, str.characters.count))
             
             x = freq / samplesPerPixel - pointSize / 2.0
             attrStr.draw(at: CGPoint(x: x, y: -40))

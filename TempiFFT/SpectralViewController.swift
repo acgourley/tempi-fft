@@ -1,16 +1,10 @@
-//
-//  SpectralViewController.swift
-//  TempiHarness
-//
-//  Created by John Scalo on 1/7/16.
-//  Copyright © 2016 John Scalo. All rights reserved.
-//
 
 import UIKit
 import AVFoundation
 
 class SpectralViewController: UIViewController {
-    
+    @IBOutlet weak var spectrum: UIView!
+    @IBOutlet weak var bigNumber: UILabel!
     var audioInput: TempiAudioInput!
     var spectralView: SpectralView!
     
@@ -18,8 +12,9 @@ class SpectralViewController: UIViewController {
         super.viewDidLoad()
 
         spectralView = SpectralView(frame: self.view.bounds)
-        spectralView.backgroundColor = UIColor.black
-        self.view.addSubview(spectralView)
+        spectralView.backgroundColor = UIColor.black;
+        self.spectrum.addSubview(spectralView);
+        
         
         let audioInputCallback: TempiAudioInputCallback = { (timeStamp, numberOfFrames, samples) -> Void in
             self.gotSomeAudio(timeStamp: Double(timeStamp), numberOfFrames: Int(numberOfFrames), samples: samples)
@@ -36,11 +31,12 @@ class SpectralViewController: UIViewController {
         
         // Interpoloate the FFT data so there's one band per pixel.
         let screenWidth = UIScreen.main.bounds.size.width * UIScreen.main.scale
-        fft.calculateLinearBands(minFrequency: 0, maxFrequency: fft.nyquistFrequency, numberOfBands: Int(screenWidth))
-
+        //fft.calculateLinearBands(minFrequency: 0, maxFrequency: fft.nyquistFrequency, numberOfBands: Int(screenWidth))
+        fft.calculateLogarithmicBands(minFrequency: 0, maxFrequency: fft.nyquistFrequency, bandsPerOctave: Int(7))
         tempi_dispatch_main { () -> () in
             self.spectralView.fft = fft
             self.spectralView.setNeedsDisplay()
+            self.bigNumber.text = String(format: "%0.0f dB", self.spectralView.highestDBSmooth);
         }
     }
     

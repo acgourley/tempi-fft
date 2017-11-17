@@ -1,9 +1,3 @@
-//
-//  TempiUtilities.swift
-//  TempiFFT
-//
-//  Created by John Scalo on 1/8/16.
-//  Copyright © 2016 John Scalo. See accompanying License.txt for terms.
 
 import Foundation
 import UIKit
