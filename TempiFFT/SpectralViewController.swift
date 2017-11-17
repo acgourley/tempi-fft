@@ -16,14 +16,23 @@ class SpectralViewController: UIViewController {
         self.spectrum.addSubview(spectralView);
         
         
+       
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.applicationBecameActive),
+            name: .UIApplicationDidBecomeActive,
+            object: nil)
+    }
+    
+    func applicationBecameActive(notification: NSNotification){
         let audioInputCallback: TempiAudioInputCallback = { (timeStamp, numberOfFrames, samples) -> Void in
             self.gotSomeAudio(timeStamp: Double(timeStamp), numberOfFrames: Int(numberOfFrames), samples: samples)
         }
-        
         audioInput = TempiAudioInput(audioInputCallback: audioInputCallback, sampleRate: 44100, numberOfChannels: 1)
-        audioInput.startRecording()
+        audioInput.startRecording();
     }
-
+    
     func gotSomeAudio(timeStamp: Double, numberOfFrames: Int, samples: [Float]) {
         let fft = TempiFFT(withSize: numberOfFrames, sampleRate: 44100.0)
         fft.windowType = TempiFFTWindowType.hanning
