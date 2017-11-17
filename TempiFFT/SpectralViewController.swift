@@ -26,6 +26,10 @@ class SpectralViewController: UIViewController {
 
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     func applicationBecameActive(notification: NSNotification){
         let audioInputCallback: TempiAudioInputCallback = { (timeStamp, numberOfFrames, samples) -> Void in
             self.gotSomeAudio(timeStamp: Double(timeStamp), numberOfFrames: Int(numberOfFrames), samples: samples)

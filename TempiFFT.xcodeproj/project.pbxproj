@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C67A312E1FBF71F800A66E89 /* langton_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C67A312D1FBF71F800A66E89 /* langton_logo.png */; };
 		EF7009141C3ED07100E75ECF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7009131C3ED07100E75ECF /* AppDelegate.swift */; };
 		EF7009161C3ED07100E75ECF /* SpectralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7009151C3ED07100E75ECF /* SpectralViewController.swift */; };
 		EF7009191C3ED07100E75ECF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF7009171C3ED07100E75ECF /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C67A312D1FBF71F800A66E89 /* langton_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = langton_logo.png; sourceTree = "<group>"; };
 		EF7009101C3ED07100E75ECF /* TempiFFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempiFFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF7009131C3ED07100E75ECF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EF7009151C3ED07100E75ECF /* SpectralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpectralViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 		EF7009071C3ED07100E75ECF = {
 			isa = PBXGroup;
 			children = (
+				C67A312D1FBF71F800A66E89 /* langton_logo.png */,
 				EF7009121C3ED07100E75ECF /* TempiFFT */,
 				EF7009111C3ED07100E75ECF /* Products */,
 			);
@@ -141,6 +144,7 @@
 			files = (
 				EF70091E1C3ED07100E75ECF /* LaunchScreen.storyboard in Resources */,
 				EF70091B1C3ED07100E75ECF /* Assets.xcassets in Resources */,
+				C67A312E1FBF71F800A66E89 /* langton_logo.png in Resources */,
 				EF7009191C3ED07100E75ECF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +284,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.langtonlabs.partypooper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -293,6 +298,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.langtonlabs.partypooper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

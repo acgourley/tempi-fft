@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -17,7 +18,6 @@
         <!--Spectral View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="SpectralViewController" customModule="TempiFFT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -31,22 +31,31 @@
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                                 <color key="backgroundColor" red="0.25414912564766834" green="0.25414912564766834" blue="0.25414912564766834" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="32 dB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvg-xX-I3r" userLabel="bigNumber">
-                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="180"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="32 dB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hvg-xX-I3r" userLabel="bigNumber">
+                                <rect key="frame" x="0.0" y="0.0" width="617" height="375"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="300"/>
                                 <color key="textColor" red="0.4388593864" green="0.8114911024" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="langton_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="efd-0U-5fk">
+                                <rect key="frame" x="567" y="0.0" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="gwQ-Vt-qSq"/>
+                                    <constraint firstAttribute="width" secondItem="efd-0U-5fk" secondAttribute="height" multiplier="1:1" id="kFY-X9-jif"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hvg-xX-I3r" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="3vl-84-0uY"/>
                             <constraint firstAttribute="trailing" secondItem="O3M-wR-rEc" secondAttribute="trailing" id="5ur-cY-f2p"/>
+                            <constraint firstItem="efd-0U-5fk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="8hv-Wc-MHo"/>
                             <constraint firstItem="hvg-xX-I3r" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="MYB-GC-FpM"/>
-                            <constraint firstAttribute="trailing" secondItem="hvg-xX-I3r" secondAttribute="trailing" id="PHg-fI-CtR"/>
+                            <constraint firstAttribute="trailing" secondItem="hvg-xX-I3r" secondAttribute="trailing" constant="50" id="PHg-fI-CtR"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="O3M-wR-rEc" secondAttribute="bottom" id="Ul9-7D-ezH"/>
                             <constraint firstItem="O3M-wR-rEc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="V96-Vf-JXR"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hvg-xX-I3r" secondAttribute="bottom" id="hJM-oH-Str"/>
+                            <constraint firstAttribute="trailing" secondItem="efd-0U-5fk" secondAttribute="trailing" id="rtl-yW-4gI"/>
                             <constraint firstItem="O3M-wR-rEc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="urf-HW-ppT"/>
                         </constraints>
                     </view>
@@ -55,8 +64,12 @@
                         <outlet property="spectrum" destination="O3M-wR-rEc" id="1yg-us-6Kp"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="133.5832083958021" y="124"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="langton_logo.png" width="400" height="424"/>
+    </resources>
 </document>
