@@ -45,7 +45,7 @@ class SpectralView: UIView {
         let count = fft.numberOfBands
         
         // Draw the spectrum.
-        let maxDB: Float = 120.0
+        let maxDB: Float = 80.0
         let minDB: Float = -32.0
         let headroom = maxDB - minDB
         let colWidth = tempi_round_device_scale(d: viewWidth / CGFloat(count))
@@ -87,7 +87,7 @@ class SpectralView: UIView {
         if(highestDB > highestDBSmooth) {
             highestDBSmooth = highestDB * 0.2 + highestDBSmooth * 0.8;
         } else {
-            highestDBSmooth = highestDB * 0.01 + highestDBSmooth * 0.99;
+            highestDBSmooth = highestDB * 0.005 + highestDBSmooth * 0.995;
         }
         context.restoreGState()
     }
