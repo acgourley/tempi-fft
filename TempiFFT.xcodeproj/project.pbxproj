@@ -111,7 +111,7 @@
 				TargetAttributes = {
 					EF70090F1C3ED07100E75ECF = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = V46VL48CWC;
+						DevelopmentTeam = J3FM32EC3U;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -274,7 +274,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V46VL48CWC;
+				DEVELOPMENT_TEAM = J3FM32EC3U;
 				INFOPLIST_FILE = TempiFFT/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.scalo.TempiHarness;
@@ -287,7 +287,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V46VL48CWC;
+				DEVELOPMENT_TEAM = J3FM32EC3U;
 				INFOPLIST_FILE = TempiFFT/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.scalo.TempiHarness;

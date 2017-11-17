@@ -11,13 +11,17 @@ import UIKit
 class SpectralView: UIView {
 
     var fft: TempiFFT!
+    var avgFFT: [Float]!
+    var highestDB: Float = 0.0
 
     override func draw(_ rect: CGRect) {
         
         if fft == nil {
             return
         }
-        
+        if avgFFT == nil {
+            avgFFT = [Float](repeating: 0, count: fft.numberOfBands)
+        }
         let context = UIGraphicsGetCurrentContext()
         
         self.drawSpectrum(context: context!)
@@ -41,25 +45,33 @@ class SpectralView: UIView {
             colorsSpace: nil, // generic color space
             colors: colors as CFArray,
             locations: [0.0, 0.3, 0.6])
-        
+
         var x: CGFloat = 0.0
         
         let count = fft.numberOfBands
         
         // Draw the spectrum.
-        let maxDB: Float = 64.0
+        let maxDB: Float = 120.0
         let minDB: Float = -32.0
         let headroom = maxDB - minDB
         let colWidth = tempi_round_device_scale(d: viewWidth / CGFloat(count))
-        
+        highestDB = 0
         for i in 0..<count {
-            let magnitude = fft.magnitudeAtBand(i)
+            
+            avgFFT[i] = fft.magnitudeAtBand(i) * 0.3 + avgFFT[i] * 0.7
+            
+            //let magnitude = fft.magnitudeAtBand(i) //fast reading
+            let magnitude = avgFFT[i]; // slow avg
             
             // Incoming magnitudes are linear, making it impossible to see very low or very high values. Decibels to the rescue!
             var magnitudeDB = TempiFFT.toDB(magnitude)
             
             // Normalize the incoming magnitude so that -Inf = 0
             magnitudeDB = max(0, magnitudeDB + abs(minDB))
+            
+            if highestDB < magnitudeDB {
+                highestDB = magnitudeDB
+            }
             
             let dbRatio = min(1.0, magnitudeDB / headroom)
             let magnitudeNorm = CGFloat(dbRatio) * viewHeight
@@ -72,6 +84,8 @@ class SpectralView: UIView {
             context.saveGState()
             context.clip(to: colRect)
             context.drawLinearGradient(gradient!, start: startPoint, end: endPoint, options: CGGradientDrawingOptions(rawValue: 0))
+            
+            
             context.restoreGState()
             
             x += colWidth
@@ -90,13 +104,13 @@ class SpectralView: UIView {
         let pointSize: CGFloat = 15.0
         let font = UIFont.systemFont(ofSize: pointSize, weight: UIFontWeightRegular)
         
-        let freqLabelStr = "Frequency (kHz)"
+        let freqLabelStr = "Frequency (kHz) Highest: " + String(format: "%0.0f", highestDB) + " dB"
         var attrStr = NSMutableAttributedString(string: freqLabelStr)
         attrStr.addAttribute(NSFontAttributeName, value: font, range: NSMakeRange(0, freqLabelStr.characters.count))
         attrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.yellow, range: NSMakeRange(0, freqLabelStr.characters.count))
         
         var x: CGFloat = viewWidth / 2.0 - attrStr.size().width / 2.0
-        attrStr.draw(at: CGPoint(x: x, y: -22))
+        attrStr.draw(at: CGPoint(x: 0, y: -22))
         
         let labelStrings: [String] = ["5", "10", "15", "20"]
         let labelValues: [CGFloat] = [5000, 10000, 15000, 20000]
