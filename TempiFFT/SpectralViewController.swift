@@ -41,6 +41,11 @@ class SpectralViewController: UIViewController {
     func nagTimerHandler() {
          //https://hooks.zapier.com/hooks/catch/25928/smvqh5/
         NSLog("Nag timer handled");
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        
         if(self.spectralView.highestDBSmooth > 0) { //for now we will filter on zapier side so this can be zero
             let url = URL(string: "https://hooks.zapier.com/hooks/catch/25928/smvqh5/")!
             let session = URLSession.shared
@@ -48,7 +53,7 @@ class SpectralViewController: UIViewController {
             request.httpMethod = "POST" //set http method as POST
             let parameters = [
                 "db": String(format:"%.1f", self.spectralView.highestDBSmooth),
-                "message": "Turn it down!!" //TODO: change message based on db
+                "time": formatter.string(from: now)
             ]
             do {
                 let jsonString = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
