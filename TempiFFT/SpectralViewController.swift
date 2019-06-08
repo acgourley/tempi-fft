@@ -30,7 +30,7 @@ class SpectralViewController: UIViewController {
         return true
     }
     
-    func applicationBecameActive(notification: NSNotification){
+    @objc func applicationBecameActive(notification: NSNotification){
         let audioInputCallback: TempiAudioInputCallback = { (timeStamp, numberOfFrames, samples) -> Void in
             self.gotSomeAudio(timeStamp: Double(timeStamp), numberOfFrames: Int(numberOfFrames), samples: samples)
         }
@@ -38,7 +38,7 @@ class SpectralViewController: UIViewController {
         audioInput.startRecording();
     }
    
-    func nagTimerHandler() {
+    @objc func nagTimerHandler() {
          //https://hooks.zapier.com/hooks/catch/25928/smvqh5/
         NSLog("Nag timer handled");
         let now = Date()

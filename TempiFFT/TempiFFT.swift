@@ -49,7 +49,7 @@ import Accelerate
     }
     
     // After performing the FFT, contains size/2 magnitudes, one for each frequency band.
-    private var magnitudes: [Float]!
+    private var magnitudes: [Float]?
     
     /// After calling calculateLinearBands() or calculateLogarithmicBands(), contains a magnitude for each band.
     private(set) var bandMagnitudes: [Float]!
@@ -60,7 +60,7 @@ import Accelerate
     /// The average bandwidth throughout the spectrum (nyquist / magnitudes.count)
     var bandwidth: Float {
         get {
-            return self.nyquistFrequency / Float(self.magnitudes.count)
+            return self.nyquistFrequency / Float(self.magnitudes!.count)
         }
     }
     
@@ -75,7 +75,7 @@ import Accelerate
     
     private var halfSize:Int
     private var log2Size:Int
-    private var window:[Float]!
+    private var window:[Float]?
     private var fftSetup:FFTSetup
     private var hasPerformedFFT: Bool = false
     private var complexBuffer: DSPSplitComplex!
@@ -134,7 +134,7 @@ import Accelerate
             }
             
             // Apply the window
-            vDSP_vmul(inMonoBuffer, 1, self.window, 1, &analysisBuffer, 1, UInt(inMonoBuffer.count))
+            vDSP_vmul(inMonoBuffer, 1, self.window!, 1, &analysisBuffer, 1, UInt(inMonoBuffer.count))
         }
         
 
@@ -195,9 +195,9 @@ import Accelerate
             var magsAvg: Float
             if magsEndIdx == magsStartIdx {
                 // Can happen when numberOfBands < # of magnitudes. No need to average anything.
-                magsAvg = self.magnitudes[magsStartIdx]
+                magsAvg = self.magnitudes![magsStartIdx]
             } else {
-                magsAvg = fastAverage(self.magnitudes, magsStartIdx, magsEndIdx)
+                magsAvg = fastAverage(self.magnitudes!, magsStartIdx, magsEndIdx)
             }
             self.bandMagnitudes[i] = magsAvg
             self.bandFrequencies[i] = self.averageFrequencyInRange(magsStartIdx, magsEndIdx)
@@ -265,7 +265,7 @@ import Accelerate
     }
     
     private func magIndexForFreq(_ freq: Float) -> Int {
-        return Int(Float(self.magnitudes.count) * freq / self.nyquistFrequency)
+        return Int(Float(self.magnitudes!.count) * freq / self.nyquistFrequency)
     }
     
     // On arrays of 1024 elements, this is ~35x faster than an iterational algorithm. Thanks Accelerate.framework!
@@ -286,7 +286,7 @@ import Accelerate
             highIndex += 1
         }
         
-        return Array(self.magnitudes[lowIndex..<highIndex])
+        return Array(self.magnitudes![lowIndex..<highIndex])
     }
     
     @inline(__always) private func averageFrequencyInRange(_ startIndex: Int, _ endIndex: Int) -> Float {
@@ -308,7 +308,7 @@ import Accelerate
     func magnitudeAtFrequency(_ inFrequency: Float) -> Float {
         assert(hasPerformedFFT, "*** Perform the FFT first.")
         let index = Int(floorf(inFrequency / self.bandwidth ))
-        return self.magnitudes[index]
+        return self.magnitudes![index]
     }
     
     /// Get the middle frequency of the Nth band.
