@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C67A312E1FBF71F800A66E89 /* langton_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C67A312D1FBF71F800A66E89 /* langton_logo.png */; };
+		C6AD8A3B22AC6E2900E4818A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6AD8A3922AC6DA200E4818A /* AVFoundation.framework */; };
 		EF7009141C3ED07100E75ECF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7009131C3ED07100E75ECF /* AppDelegate.swift */; };
 		EF7009161C3ED07100E75ECF /* SpectralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7009151C3ED07100E75ECF /* SpectralViewController.swift */; };
 		EF7009191C3ED07100E75ECF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF7009171C3ED07100E75ECF /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6AD8A3B22AC6E2900E4818A /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
