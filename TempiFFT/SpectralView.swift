@@ -46,7 +46,7 @@ class SpectralView: UIView {
         
         // Draw the spectrum.
         let maxDB: Float = 80.0
-        let minDB: Float = -32.0
+        let minDB: Float = -52.0 // used to be -32, but -52 matches my handheld meter better on iPad 4 test device. -a
         let headroom = maxDB - minDB
         let colWidth = tempi_round_device_scale(d: viewWidth / CGFloat(count))
         highestDB = 0

@@ -5,13 +5,22 @@ import AVFoundation
 class SpectralViewController: UIViewController {
     @IBOutlet weak var spectrum: UIView!
     @IBOutlet weak var bigNumber: UILabel!
+    @IBOutlet weak var limitSlider: UISlider!
+    @IBOutlet weak var limitDB: UILabel!
     var audioInput: TempiAudioInput!
     var spectralView: SpectralView!
     var nagTimer: Timer!
+    let defaults = UserDefaults.standard
+    var unhappyDBLevel = 60
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // load slider cutoff from disk
+        unhappyDBLevel = defaults.integer(forKey: "unhappyDBLevel")
+        limitSlider.value = Float(unhappyDBLevel)
+        limitDB.text = "\(unhappyDBLevel)dB Unhappy Level"
+        
         spectralView = SpectralView(frame: self.view.bounds)
         spectralView.backgroundColor = UIColor.black;
         self.spectrum.addSubview(spectralView);
@@ -24,6 +33,13 @@ class SpectralViewController: UIViewController {
         
         nagTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(nagTimerHandler), userInfo: nil, repeats: true)
 
+    }
+    
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+        unhappyDBLevel = Int(sender.value)
+        defaults.set(unhappyDBLevel, forKey: "unhappyDBLevel")
+
+        limitDB.text = "\(unhappyDBLevel)dB Unhappy Level"
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -66,6 +82,9 @@ class SpectralViewController: UIViewController {
         }
         
     }
+    
+    var frameState = 0
+
     func gotSomeAudio(timeStamp: Double, numberOfFrames: Int, samples: [Float]) {
         let fft = TempiFFT(withSize: numberOfFrames, sampleRate: 44100.0)
         fft.windowType = TempiFFTWindowType.hanning
@@ -75,12 +94,20 @@ class SpectralViewController: UIViewController {
         let screenWidth = UIScreen.main.bounds.size.width * UIScreen.main.scale
         //fft.calculateLinearBands(minFrequency: 0, maxFrequency: fft.nyquistFrequency, numberOfBands: Int(screenWidth))
         fft.calculateLogarithmicBands(minFrequency: 0, maxFrequency: fft.nyquistFrequency, bandsPerOctave: Int(7))
+        
         tempi_dispatch_main { () -> () in
             self.spectralView.fft = fft
             self.spectralView.setNeedsDisplay()
-            self.bigNumber.text = String(format: "%0.0f dB", self.spectralView.highestDBSmooth);
+            
+            var face = ""//😎👌";
+            if(Int(self.spectralView.highestDBSmooth) > self.unhappyDBLevel) {
+                face = self.frameState > 0 ? "😭👎" : "😫👎"
+            }
+            self.bigNumber.text = String(format: "%0.0f dB %@", self.spectralView.highestDBSmooth, face);
+            self.frameState = self.frameState > 0 ? 0 : 1
         }
     }
+
     
     override func didReceiveMemoryWarning() {
         NSLog("*** Memory!")
